@@ -5,6 +5,8 @@ VisualStudioVersion = 17.6.33723.286
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepositoryReader", "RepositoryReader\RepositoryReader.csproj", "{058F80C2-1BA2-4B74-A9B8-D2051338D991}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepositoryReader.Debian", "RepositoryReader.Debian\RepositoryReader.Debian.csproj", "{860F2A0E-47D2-40FC-8C6F-4037D2D37B30}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{058F80C2-1BA2-4B74-A9B8-D2051338D991}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{058F80C2-1BA2-4B74-A9B8-D2051338D991}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{058F80C2-1BA2-4B74-A9B8-D2051338D991}.Release|Any CPU.Build.0 = Release|Any CPU
+		{860F2A0E-47D2-40FC-8C6F-4037D2D37B30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{860F2A0E-47D2-40FC-8C6F-4037D2D37B30}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{860F2A0E-47D2-40FC-8C6F-4037D2D37B30}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{860F2A0E-47D2-40FC-8C6F-4037D2D37B30}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
