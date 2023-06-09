@@ -9,18 +9,22 @@ namespace RepositoryReader.Debian
 {
     public class DebianPackageParametersFactory : IPackageParametersFactory
 				{
-								private readonly ILogger _logger;
+								private readonly ILogger<DebianPackageParametersFactory> _logger;
 
-        public DebianPackageParametersFactory(ILoggerFactory loggerFactory)
+        public DebianPackageParametersFactory(ILogger<DebianPackageParametersFactory> logger)
         {
-            _logger = loggerFactory.CreateLogger<DebianPackageParametersFactory>();
+            _logger = logger;
         }
         public IPackageParameters CreatePackageParameters(string RawParameters)
 								{
 												try
 												{
+																if (string.IsNullOrEmpty(RawParameters))
+																{
+																				throw new ArgumentNullException("RawParameters");
+																}
 																DebianPackageParameters debianPackageParameters = new(); 
-																RawParameters.Split(new string[] { Environment.NewLine },	StringSplitOptions.RemoveEmptyEntries)
+																RawParameters.Split(new string[] { "\r\n", "\n" },	StringSplitOptions.RemoveEmptyEntries)
 																												 .ToList()
 																													.ForEach(c => _parseString(debianPackageParameters, c));
 																return debianPackageParameters;
@@ -66,7 +70,7 @@ namespace RepositoryReader.Debian
 																								parameters.Priority = keyValuePair[1];
 																								break;
 																				case "Installed-Size":
-																								parameters.Installed_Size = int.Parse(keyValuePair[1]);
+																								parameters.Installed_Size = uint.Parse(keyValuePair[1]);
 																								break;
 																				case "Maintainer":
 																								parameters.Maintainer = keyValuePair[1];
@@ -93,7 +97,7 @@ namespace RepositoryReader.Debian
 																								parameters.SHA256 = keyValuePair[1];
 																								break;
 																				case "Size":
-																								parameters.Size = int.Parse(keyValuePair[1]);
+																								parameters.Size = uint.Parse(keyValuePair[1]);
 																								break;
 																				case "Filename":
 																								parameters.Filename = keyValuePair[1];

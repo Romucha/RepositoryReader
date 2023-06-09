@@ -16,7 +16,7 @@ namespace RepositoryReader.Debian
         public string Architecture { get; set; } = string.Empty;
         public string Section { get; set; } = string.Empty;
         public string Priority { get; set; } = string.Empty;
-								public int Installed_Size { get; set; }
+								public uint Installed_Size { get; set; }
 								public string Maintainer { get; set; } = string.Empty;
 								public string Description { get; set; } = string.Empty;
 								public IEnumerable<string> Depends { get; set; } = Enumerable.Empty<string>();
@@ -25,7 +25,7 @@ namespace RepositoryReader.Debian
 								public IEnumerable<string> Enhances { get; set; } = Enumerable.Empty<string>();
 								public IEnumerable<string> Pre_Depends { get; set; } = Enumerable.Empty<string>();
 								public string SHA256 { get; set; } = string.Empty;
-								public int Size { get; set; }
+								public uint Size { get; set; }
 								public string Filename { get; set; } = string.Empty;
 				}
 }
