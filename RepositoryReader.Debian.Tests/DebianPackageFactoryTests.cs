@@ -4,11 +4,11 @@ using Moq;
 
 namespace RepositoryReader.Debian.Tests
 {
-				public class DebianPackageParametersFactoryTests
+				public class DebianPackageFactoryTests
 				{
 								private DebianPackageParametersFactory _factory;
 
-        public DebianPackageParametersFactoryTests()
+        public DebianPackageFactoryTests()
         {
 												Microsoft.Extensions.Logging.ILogger<DebianPackageParametersFactory> logger = new Mock<Microsoft.Extensions.Logging.ILogger<DebianPackageParametersFactory>>().Object;
 												_factory = new DebianPackageParametersFactory(logger);

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace RepositoryReader.Debian
 {
-    public class DebianPackageParametersFactory : IPackageParametersFactory
+    public class DebianPackageParametersFactory : IPackageFactory
 				{
 								private readonly ILogger<DebianPackageParametersFactory> _logger;
 
@@ -15,7 +15,7 @@ namespace RepositoryReader.Debian
         {
             _logger = logger;
         }
-        public IPackageParameters CreatePackageParameters(string RawParameters)
+        public IPackage CreatePackageParameters(string RawParameters)
 								{
 												try
 												{

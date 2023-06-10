@@ -24,5 +24,7 @@
 								/// Packages stored in repository.
 								/// </summary>
         IEnumerable<IPackage> Packages { get; set; }
+
+								Task GetPackages(Uri packageUri);
     }
 }
