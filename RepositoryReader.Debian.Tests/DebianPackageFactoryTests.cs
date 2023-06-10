@@ -6,12 +6,12 @@ namespace RepositoryReader.Debian.Tests
 {
 				public class DebianPackageFactoryTests
 				{
-								private DebianPackageParametersFactory _factory;
+								private DebianPackageFactory _factory;
 
         public DebianPackageFactoryTests()
         {
-												Microsoft.Extensions.Logging.ILogger<DebianPackageParametersFactory> logger = new Mock<Microsoft.Extensions.Logging.ILogger<DebianPackageParametersFactory>>().Object;
-												_factory = new DebianPackageParametersFactory(logger);
+												Microsoft.Extensions.Logging.ILogger<DebianPackageFactory> logger = new Mock<Microsoft.Extensions.Logging.ILogger<DebianPackageFactory>>().Object;
+												_factory = new DebianPackageFactory(logger);
         }
 
         [Fact]
@@ -24,7 +24,7 @@ namespace RepositoryReader.Debian.Tests
 												parameters = _factory.CreatePackageParameters(input);
 												//assert
 												Assert.NotNull(parameters);
-												Assert.IsType<DebianPackageParameters>(parameters);
+												Assert.IsType<DebianPackage>(parameters);
 								}
 
 								[Fact]

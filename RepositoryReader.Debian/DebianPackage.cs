@@ -9,7 +9,7 @@ using static System.Net.WebRequestMethods;
 
 namespace RepositoryReader.Debian
 {
-    public class DebianPackageParameters : IPackage
+    public class DebianPackage : IPackage
     {
 								public string Name { get; set; } = string.Empty;
         public string Version { get; set; } = string.Empty;

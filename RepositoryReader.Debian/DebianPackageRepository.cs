@@ -2,7 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -32,11 +34,24 @@ namespace RepositoryReader.Debian
 
 								public async Task GetPackages(Uri packagesUri)
 								{
-												var response = await _client.GetAsync(packagesUri);
-												if (response.IsSuccessStatusCode) 
+												try
 												{
-																string rawPackagesList = await response.Content.ReadAsStringAsync();
-																var splitStrings = ParsePackages(rawPackagesList);
+																var response = await _client.GetAsync(packagesUri);
+																if (response.IsSuccessStatusCode)
+																{
+																				string rawPackagesList = await response.Content.ReadAsStringAsync();
+																				var splitPackages = rawPackagesList.Split(new string[] { "\n\n", "\r\n\r\n" }, StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+																				Packages = splitPackages.ToList().Select(c => _factory.CreatePackageParameters(c));
+																}
+																else
+																{
+																				throw new HttpRequestException($"{response.StatusCode}");
+																}
+												}
+												catch (Exception ex)
+												{
+																_logger.LogError(ex, "Error when getting packagess from repository");
+																throw;
 												}
 								}
     }

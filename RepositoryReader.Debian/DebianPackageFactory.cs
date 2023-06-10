@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace RepositoryReader.Debian
 {
-    public class DebianPackageParametersFactory : IPackageFactory
+    public class DebianPackageFactory : IPackageFactory
 				{
-								private readonly ILogger<DebianPackageParametersFactory> _logger;
+								private readonly ILogger<DebianPackageFactory> _logger;
 
-        public DebianPackageParametersFactory(ILogger<DebianPackageParametersFactory> logger)
+        public DebianPackageFactory(ILogger<DebianPackageFactory> logger)
         {
             _logger = logger;
         }
@@ -23,7 +23,7 @@ namespace RepositoryReader.Debian
 																{
 																				throw new ArgumentNullException("RawParameters");
 																}
-																DebianPackageParameters debianPackageParameters = new(); 
+																DebianPackage debianPackageParameters = new(); 
 																RawParameters.Split(new string[] { "\r\n", "\n" },	StringSplitOptions.RemoveEmptyEntries)
 																												 .ToList()
 																													.ForEach(c => _parseString(debianPackageParameters, c));
@@ -36,7 +36,7 @@ namespace RepositoryReader.Debian
 												}
 								}
 
-								private void _parseString(DebianPackageParameters parameters, string rawParameter) 
+								private void _parseString(DebianPackage parameters, string rawParameter) 
 								{
 												if (parameters == null) 
 												{ 
