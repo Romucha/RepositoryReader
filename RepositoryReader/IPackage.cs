@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 namespace RepositoryReader
 {
 				/// <summary>
-				/// Containss parameters of a single package.
+				/// Contains parameters of a single package.
 				/// </summary>
-    public interface IPackageParameters
+    public interface IPackage
     {
 								/// <summary>
 								/// Name of package.

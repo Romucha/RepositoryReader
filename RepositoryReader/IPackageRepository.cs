@@ -23,6 +23,6 @@
 								/// <summary>
 								/// Packages stored in repository.
 								/// </summary>
-        IEnumerable<IPackageParameters> Packages { get; set; }
+        IEnumerable<IPackage> Packages { get; set; }
     }
 }

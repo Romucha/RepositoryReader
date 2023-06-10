@@ -19,7 +19,7 @@ namespace RepositoryReader.Debian.Tests
 								{
 												//arrange
 												string input = Properties.Resources.NormalParameters;
-												IPackageParameters parameters;
+												IPackage parameters;
 												//act
 												parameters = _factory.CreatePackageParameters(input);
 												//assert
@@ -32,7 +32,7 @@ namespace RepositoryReader.Debian.Tests
 								{
 												//arrange
 												string input = Properties.Resources.BrokenParameters;
-												IPackageParameters parameters;
+												IPackage parameters;
 												//act
 												parameters = _factory.CreatePackageParameters(input);
 												//assert
@@ -44,7 +44,7 @@ namespace RepositoryReader.Debian.Tests
 								{
 												//arrange
 												string input = Properties.Resources.EmptyParameters;
-												IPackageParameters parameters;
+												IPackage parameters;
 												//act
 												parameters = _factory.CreatePackageParameters(input);
 												//assert

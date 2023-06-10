@@ -9,13 +9,13 @@ namespace RepositoryReader
 				/// <summary>
 				/// Provides methods of reading package parameters.
 				/// </summary>
-    public interface IPackageParametersFactory
+    public interface IPackageFactory
     {
 								/// <summary>
 								/// Reads package parameters from string.
 								/// </summary>
 								/// <param name="RawParameters"></param>
 								/// <returns></returns>
-        IPackageParameters CreatePackageParameters(string RawParameters);
+        IPackage CreatePackageParameters(string RawParameters);
     }
 }
