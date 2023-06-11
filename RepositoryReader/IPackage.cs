@@ -23,5 +23,7 @@ namespace RepositoryReader
 								/// Architecture of package.
 								/// </summary>
         string Architecture { get; }
+
+								IPackage WithParameters(string Parameters);
     }
 }

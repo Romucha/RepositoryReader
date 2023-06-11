@@ -20,19 +20,19 @@ namespace RepositoryReader.Debian
 								private readonly HttpClient _client;
 
 								/// <inheritdoc/>
-								public string Name { get; }
+								public string Name { get; private set; }
 								/// <inheritdoc/>
-								public Uri BaseUri { get; set; }
+								public Uri BaseUri { get; private set; }
 								/// <inheritdoc/>
-								public Uri GpgKeyUri { get; set; }
+								public Uri GpgKeyUri { get; private set; }
 								/// <inheritdoc/>
-								public IEnumerable<IPackage> Packages { get; set; }
+								public IEnumerable<IPackage> Packages { get; private set; }
 								/// <inheritdoc/>
-								public bool IsManageable { get; set; }
+								public bool IsManageable { get; private set; }
 								/// <inheritdoc/>
-								public int Port { get; set; }
-								public string Distribution { get; set; }
-								public IEnumerable<string> Components { get; set; }
+								public int Port { get; private set; }
+								public string Distribution { get; private set; }
+								public IEnumerable<string> Components { get; private set; }
 
 								public DebianPackageRepository(ILogger<DebianPackageRepository> logger, IPackageFactory factory, IHttpClientFactory httpClientFactory)
         {

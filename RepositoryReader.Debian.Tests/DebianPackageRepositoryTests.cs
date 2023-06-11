@@ -30,7 +30,7 @@ namespace RepositoryReader.Debian.Tests
 												//assign
 												var normalrepourl = new Uri("https://packages.microsoft.com/debian/10/prod/dists/buster/main/binary-all/Packages");
 												//act
-												await _packageRepository.GetPackages(normalrepourl);
+												await _packageRepository.GetPackages();
 												//assert
 												Assert.NotNull(_packageRepository.Packages);
 												Assert.NotEmpty(_packageRepository.Packages);
@@ -42,7 +42,7 @@ namespace RepositoryReader.Debian.Tests
 												//assign
 												var brokenrepourl = new Uri("https://packages.microsoft.com/debian/10/prod/dists/buster/main/binary-all/NoPackages");
 												//act
-												Func<Task> func = () => _packageRepository.GetPackages(brokenrepourl);
+												Func<Task> func = () => _packageRepository.GetPackages();
 												//assert
 												await Assert.ThrowsAnyAsync<Exception>(func);
 								}
