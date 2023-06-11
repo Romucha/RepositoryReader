@@ -14,14 +14,14 @@ namespace RepositoryReader
 								/// <summary>
 								/// Name of package.
 								/// </summary>
-        string Name { get; set; }
+        string Name { get; }
 								/// <summary>
 								/// Version of package.
 								/// </summary>
-        string Version { get; set; }
+        string Version { get; }
 								/// <summary>
 								/// Architecture of package.
 								/// </summary>
-        string Architecture { get; set; }
+        string Architecture { get; }
     }
 }

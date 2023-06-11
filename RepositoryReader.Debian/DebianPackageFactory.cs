@@ -11,7 +11,7 @@ namespace RepositoryReader.Debian
 				{
 								private readonly ILogger<DebianPackageFactory> _logger;
 
-        public DebianPackageFactory(ILogger<DebianPackageFactory> logger)
+        internal DebianPackageFactory(ILogger<DebianPackageFactory> logger)
         {
             _logger = logger;
         }

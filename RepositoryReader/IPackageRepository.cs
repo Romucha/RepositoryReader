@@ -8,23 +8,37 @@
 								/// <summary>
 								/// Name of repository.
 								/// </summary>
-								string Name { get; set; }				
+								string Name { get; }				
 
 								/// <summary>
 								/// Url of repository.
 								/// </summary>
-								Uri BaseUri { get; set; }
+								Uri BaseUri { get; }
 
 								/// <summary>
 								/// Url of gpg of repository.
 								/// </summary>
-								Uri GpgKeyUri { get; set; }
+								Uri GpgKeyUri { get; }
+
+								/// <summary>
+								/// Determines if the repository can be managed by user.
+								/// </summary>
+								bool IsManageable { get; }
+
+								/// <summary>
+								/// Port to manage repository.
+								/// </summary>
+								int Port { get; }
 
 								/// <summary>
 								/// Packages stored in repository.
 								/// </summary>
-        IEnumerable<IPackage> Packages { get; set; }
+        IEnumerable<IPackage> Packages { get; }
 
-								Task GetPackages(Uri packageUri);
+								/// <summary>
+								/// Get packages from repository and puts them into collection.
+								/// </summary>
+								/// <returns></returns>
+								Task GetPackages();
     }
 }

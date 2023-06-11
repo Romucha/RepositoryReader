@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,25 +19,33 @@ namespace RepositoryReader.Debian
 
 								private readonly HttpClient _client;
 
-								public string Name { get; set; }
+								/// <inheritdoc/>
+								public string Name { get; }
+								/// <inheritdoc/>
 								public Uri BaseUri { get; set; }
+								/// <inheritdoc/>
 								public Uri GpgKeyUri { get; set; }
+								/// <inheritdoc/>
 								public IEnumerable<IPackage> Packages { get; set; }
+								/// <inheritdoc/>
+								public bool IsManageable { get; set; }
+								/// <inheritdoc/>
+								public int Port { get; set; }
 								public string Distribution { get; set; }
 								public IEnumerable<string> Components { get; set; }
 
-        public DebianPackageRepository(ILogger<DebianPackageRepository> logger, IPackageFactory factory, IHttpClientFactory httpClientFactory)
+								public DebianPackageRepository(ILogger<DebianPackageRepository> logger, IPackageFactory factory, IHttpClientFactory httpClientFactory)
         {
             _logger = logger;
 												_factory = factory;
 												_client = httpClientFactory.CreateClient();
         }
 
-								public async Task GetPackages(Uri packagesUri)
+								public async Task GetPackages()
 								{
 												try
 												{
-																var response = await _client.GetAsync(packagesUri);
+																var response = await _client.GetAsync(BaseUri);
 																if (response.IsSuccessStatusCode)
 																{
 																				string rawPackagesList = await response.Content.ReadAsStringAsync();
@@ -54,5 +63,5 @@ namespace RepositoryReader.Debian
 																throw;
 												}
 								}
-    }
+				}
 }
