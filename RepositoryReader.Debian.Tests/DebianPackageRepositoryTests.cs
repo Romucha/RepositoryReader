@@ -1,4 +1,6 @@
-﻿using Moq;
+﻿using Castle.Core.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
+using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,19 +11,18 @@ namespace RepositoryReader.Debian.Tests
 {
 				public class DebianPackageRepositoryTests
 				{
-								private readonly IPackageRepository _packageRepository;
+								private readonly IPackageRepositoryFactory _packageRepositoryFactory;
         public DebianPackageRepositoryTests()
         {
-												Microsoft.Extensions.Logging.ILogger<DebianPackageRepository> logger = new Mock<Microsoft.Extensions.Logging.ILogger<DebianPackageRepository>>().Object;
-												Microsoft.Extensions.Logging.ILogger<DebianPackageFactory> factoryLogger = new Mock<Microsoft.Extensions.Logging.ILogger<DebianPackageFactory>>().Object;
-
-												IPackageFactory factory = new DebianPackageFactory(factoryLogger);
-
+												//httpclient factory
 												var httpClientFactoryMock = new Mock<IHttpClientFactory>();
 												var client = new HttpClient();
 												httpClientFactoryMock.Setup(c => c.CreateClient(It.IsAny<string>())).Returns(client);
 												IHttpClientFactory httpClientFactory = httpClientFactoryMock.Object;
-												_packageRepository = new DebianPackageRepository(logger, factory, httpClientFactory);
+												//loggerfactory
+												var loggerFactory = new NullLoggerFactory();
+												//repository factory
+												_packageRepositoryFactory = new DebianPackageRepositoryFactory(loggerFactory, httpClientFactory);
         }
 
 								[Fact]

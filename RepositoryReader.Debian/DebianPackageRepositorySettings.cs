@@ -23,5 +23,7 @@ namespace RepositoryReader.Debian
 								public string Distribution { get; set; }
 
 								public IEnumerable<string> Components { get; set; }
+
+								public IEnumerable<string> Architectures { get; set; }
 				}
 }

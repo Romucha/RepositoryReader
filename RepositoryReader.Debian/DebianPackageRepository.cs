@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -34,6 +35,7 @@ namespace RepositoryReader.Debian
 								public string Type { get; private set; }
 								public string Distribution { get; private set; }
 								public IEnumerable<string> Components { get; private set; }
+								public IEnumerable<string> Architectures { get; private set; }
 								public string SourcesListAddress{ get; private set; }
 
 								public DebianPackageRepository(ILoggerFactory loggerFactory, IPackageFactory factory, IHttpClientFactory httpClientFactory)
@@ -47,17 +49,26 @@ namespace RepositoryReader.Debian
 								{
 												try
 												{
-																var response = await _client.GetAsync(BaseUri);
-																if (response.IsSuccessStatusCode)
+																Packages = new List<IPackage>();
+																foreach (var component in Components) 
 																{
-																				string rawPackagesList = await response.Content.ReadAsStringAsync();
-																				var splitPackages = rawPackagesList.Split(new string[] { "\n\n", "\r\n\r\n" }, StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
-																				Packages = splitPackages.ToList().Select(c => _factory.CreatePackage(c));
+																				foreach (var architecture in Architectures)
+																				{
+																								var uri = new Uri($"{BaseUri.OriginalString}/dists/{Distribution}/{component}/binary-{architecture}/Packages");
+																								var response = await _client.GetAsync(uri);
+																								if (response.IsSuccessStatusCode)
+																								{
+																												string rawPackagesList = await response.Content.ReadAsStringAsync();
+																												var splitPackages = rawPackagesList.Split(new string[] { "\n\n", "\r\n\r\n" }, StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+																												Packages = splitPackages.ToList().Select(c => _factory.CreatePackage(c));
+																								}
+																								else
+																								{
+																												throw new HttpRequestException($"{response.StatusCode}");
+																								}
+																				}
 																}
-																else
-																{
-																				throw new HttpRequestException($"{response.StatusCode}");
-																}
+																
 												}
 												catch (Exception ex)
 												{
@@ -79,11 +90,10 @@ namespace RepositoryReader.Debian
 												this.BaseUri = settings.BaseUri;
 												this.IsManageable = settings.IsManageable;
 												this.Port = settings.Port;
+												this.Type = settings.Type;
 												this.Distribution = settings.Distribution;
 												this.Components = settings.Components;
-												this.Type = settings.Type;
-												//TODO:
-												//Set sources list and gpg key address
+												this.Architectures = settings.Architectures;
 												SetSourcesListAddress();
 												return this;
 								}
