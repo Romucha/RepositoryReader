@@ -31,12 +31,14 @@ namespace RepositoryReader.Debian
 								public bool IsManageable { get; private set; }
 								/// <inheritdoc/>
 								public int Port { get; private set; }
+								public string Type { get; private set; }
 								public string Distribution { get; private set; }
 								public IEnumerable<string> Components { get; private set; }
+								public string SourcesListAddress{ get; private set; }
 
-								public DebianPackageRepository(ILogger<DebianPackageRepository> logger, IPackageFactory factory, IHttpClientFactory httpClientFactory)
+								public DebianPackageRepository(ILoggerFactory loggerFactory, IPackageFactory factory, IHttpClientFactory httpClientFactory)
         {
-            _logger = logger;
+            _logger = loggerFactory.CreateLogger<DebianPackageRepository>();
 												_factory = factory;
 												_client = httpClientFactory.CreateClient();
         }
@@ -62,6 +64,11 @@ namespace RepositoryReader.Debian
 																_logger.LogError(ex, "Error when getting packagess from repository");
 																throw;
 												}
+								}
+
+								public IPackageRepository WithSettings(IPackageRepositorySettings Settings)
+								{
+												throw new NotImplementedException();
 								}
 				}
 }

@@ -9,11 +9,11 @@ namespace RepositoryReader.Debian
 {
     public class DebianPackageFactory : IPackageFactory
 				{
-								private readonly ILogger<DebianPackageFactory> _logger;
+								private readonly ILogger _logger;
 
-        internal DebianPackageFactory(ILogger<DebianPackageFactory> logger)
+        internal DebianPackageFactory(ILoggerFactory loggerFactory)
         {
-            _logger = logger;
+            _logger = loggerFactory.CreateLogger<DebianPackageFactory>();
         }
         public IPackage CreatePackageParameters(string RawParameters)
 								{
@@ -21,7 +21,7 @@ namespace RepositoryReader.Debian
 												{
 																if (string.IsNullOrEmpty(RawParameters))
 																{
-																				throw new ArgumentNullException("RawParameters");
+																				throw new ArgumentNullException(nameof(RawParameters));
 																}
 																IPackage debianPackageParameters = new DebianPackage().WithParameters(RawParameters); 
 																

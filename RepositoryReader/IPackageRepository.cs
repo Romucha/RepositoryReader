@@ -35,6 +35,8 @@
 								/// </summary>
         IEnumerable<IPackage> Packages { get; }
 
+								IPackageRepository WithSettings(IPackageRepositorySettings Settings);
+
 								/// <summary>
 								/// Get packages from repository and puts them into collection.
 								/// </summary>

@@ -11,26 +11,26 @@ namespace RepositoryReader
 								/// <summary>
 								/// Name of repository.
 								/// </summary>
-								string Name { get; }
+								string Name { get; set; }
 
 								/// <summary>
 								/// Url of repository.
 								/// </summary>
-								Uri BaseUri { get; }
+								Uri BaseUri { get; set; }
 
 								/// <summary>
 								/// Url of gpg of repository.
 								/// </summary>
-								string GpgKeyFilename { get; }
+								string GpgKeyFilename { get; set; }
 
 								/// <summary>
 								/// Determines if the repository can be managed by user.
 								/// </summary>
-								bool IsManageable { get; }
+								bool IsManageable { get; set; }
 
 								/// <summary>
 								/// Port to manage repository.
 								/// </summary>
-								int Port { get; }
+								int Port { get; set; }
 				}
 }
