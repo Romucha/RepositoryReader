@@ -35,6 +35,7 @@ namespace RepositoryReader.Debian
 								public string Distribution { get; private set; }
 								public IEnumerable<string> Components { get; private set; }
 								public string SourcesListAddress{ get; private set; }
+								public string GpgKeyAddress { get; private set; }
 
 								public DebianPackageRepository(ILoggerFactory loggerFactory, IPackageFactory factory, IHttpClientFactory httpClientFactory)
         {
@@ -52,7 +53,7 @@ namespace RepositoryReader.Debian
 																{
 																				string rawPackagesList = await response.Content.ReadAsStringAsync();
 																				var splitPackages = rawPackagesList.Split(new string[] { "\n\n", "\r\n\r\n" }, StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
-																				Packages = splitPackages.ToList().Select(c => _factory.CreatePackageParameters(c));
+																				Packages = splitPackages.ToList().Select(c => _factory.CreatePackage(c));
 																}
 																else
 																{
@@ -68,7 +69,22 @@ namespace RepositoryReader.Debian
 
 								public IPackageRepository WithSettings(IPackageRepositorySettings Settings)
 								{
-												throw new NotImplementedException();
+												DebianPackageRepositorySettings settings = Settings as DebianPackageRepositorySettings;
+												if (settings == null)
+												{
+																throw new InvalidCastException($"{nameof(Settings)} was not {typeof(DebianPackageRepositorySettings)}");
+												}
+
+												this.Name = settings.Name;
+												this.GpgKeyUri = settings.GpgKeyUri;
+												this.BaseUri = settings.BaseUri;
+												this.Distribution = settings.Distribution;
+												this.Components = settings.Components;
+												this.IsManageable = settings.IsManageable;
+												this.Port = settings.Port;
+												//TODO:
+												//Set sources list and gpg key address
+												return this;
 								}
 				}
 }

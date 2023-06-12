@@ -24,14 +24,10 @@ namespace RepositoryReader.Debian
 
         public async Task<IPackageRepository> CreatePackageRepository(IPackageRepositorySettings Settings)
 								{
-												DebianPackageRepositorySettings settings = Settings as DebianPackageRepositorySettings;
-												if (settings == null) 
-												{
-																throw new InvalidCastException($"{nameof(Settings)} was not {typeof(DebianPackageRepositorySettings)}");
-												}
-												IPackageRepository packageRepository = new DebianPackageRepository(_loggerFactory, _packageFactory, _httpClientFactory);
+												IPackageRepository packageRepository = new DebianPackageRepository(_loggerFactory, _packageFactory, _httpClientFactory)
+												.WithSettings(Settings);
 
-												return packageRepository;
+												return await Task.FromResult(packageRepository);
 								}
 				}
 }

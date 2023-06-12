@@ -21,7 +21,7 @@ namespace RepositoryReader
 								/// <summary>
 								/// Url of gpg of repository.
 								/// </summary>
-								string GpgKeyFilename { get; set; }
+								Uri GpgKeyUri { get; set; }
 
 								/// <summary>
 								/// Determines if the repository can be managed by user.

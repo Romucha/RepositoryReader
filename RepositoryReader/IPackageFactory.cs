@@ -16,6 +16,6 @@ namespace RepositoryReader
 								/// </summary>
 								/// <param name="RawParameters"></param>
 								/// <returns></returns>
-        IPackage CreatePackageParameters(string RawParameters);
+        IPackage CreatePackage(string RawParameters);
     }
 }

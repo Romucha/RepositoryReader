@@ -12,7 +12,7 @@ namespace RepositoryReader.Debian
 
 								public Uri BaseUri { get; set; }
 
-								public string GpgKeyFilename { get; set; }
+								public Uri GpgKeyUri { get; set; }
 
 								public bool IsManageable { get; set; }
 

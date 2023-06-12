@@ -15,7 +15,7 @@ namespace RepositoryReader.Debian
         {
             _logger = loggerFactory.CreateLogger<DebianPackageFactory>();
         }
-        public IPackage CreatePackageParameters(string RawParameters)
+        public IPackage CreatePackage(string RawParameters)
 								{
 												try
 												{
