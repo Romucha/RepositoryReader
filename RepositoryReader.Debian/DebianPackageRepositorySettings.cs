@@ -18,6 +18,8 @@ namespace RepositoryReader.Debian
 
 								public int Port { get; set; }
 
+								public string Type { get; set; }
+
 								public string Distribution { get; set; }
 
 								public IEnumerable<string> Components { get; set; }

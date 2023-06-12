@@ -35,7 +35,6 @@ namespace RepositoryReader.Debian
 								public string Distribution { get; private set; }
 								public IEnumerable<string> Components { get; private set; }
 								public string SourcesListAddress{ get; private set; }
-								public string GpgKeyAddress { get; private set; }
 
 								public DebianPackageRepository(ILoggerFactory loggerFactory, IPackageFactory factory, IHttpClientFactory httpClientFactory)
         {
@@ -78,13 +77,27 @@ namespace RepositoryReader.Debian
 												this.Name = settings.Name;
 												this.GpgKeyUri = settings.GpgKeyUri;
 												this.BaseUri = settings.BaseUri;
-												this.Distribution = settings.Distribution;
-												this.Components = settings.Components;
 												this.IsManageable = settings.IsManageable;
 												this.Port = settings.Port;
+												this.Distribution = settings.Distribution;
+												this.Components = settings.Components;
+												this.Type = settings.Type;
 												//TODO:
 												//Set sources list and gpg key address
+												SetSourcesListAddress();
 												return this;
+								}
+
+								public void SetSourcesListAddress(string Address = null)
+								{
+												if (Address == null)
+												{
+																SourcesListAddress = $"{Type} {BaseUri} {Distribution} {string.Join(' ', Components)}";
+												}
+												else
+												{
+																SourcesListAddress = Address;
+												}
 								}
 				}
 }
