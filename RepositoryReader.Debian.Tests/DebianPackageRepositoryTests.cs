@@ -71,5 +71,54 @@ namespace RepositoryReader.Debian.Tests
 												//assert
 												await Assert.ThrowsAnyAsync<Exception>(func);
 								}
+
+								[Fact]
+								public async Task SetDefaultRepository()
+								{
+												//assign
+												IPackageRepositorySettings packageRepositorySettings = new DebianPackageRepositorySettings()
+												{
+																BaseUri = new Uri("https://packages.microsoft.com/debian/11/prod/"),
+																GpgKeyUri = new Uri("https://packages.microsoft.com/debian/11/prod/dists/bullseye/Release.gpg"),
+																Distribution = "bullseye",
+																Name = "microsoft",
+																IsManageable = false,
+																Port = 0,
+																Type = "deb",
+																Components = new string[] { "main" },
+																Architectures = new string[] { "all", "amd64", "arm64", "armhf" },
+												};
+												string sourcesListString = "deb https://packages.microsoft.com/debian/11/prod/ bullseye main";
+												//act
+												DebianPackageRepository? testRepository = await _packageRepositoryFactory.CreatePackageRepository(packageRepositorySettings) as DebianPackageRepository;
+												//assert
+												Assert.NotNull(testRepository);
+												Assert.Equal(sourcesListString, testRepository.SourcesListAddress);
+								}
+
+								[Fact]
+								public async Task SetSpecificRepository()
+								{
+												//assign
+												IPackageRepositorySettings packageRepositorySettings = new DebianPackageRepositorySettings()
+												{
+																BaseUri = new Uri("https://packages.microsoft.com/debian/11/prod/"),
+																GpgKeyUri = new Uri("https://packages.microsoft.com/debian/11/prod/dists/bullseye/Release.gpg"),
+																Distribution = "bullseye",
+																Name = "microsoft",
+																IsManageable = false,
+																Port = 0,
+																Type = "deb",
+																Components = new string[] { "main" },
+																Architectures = new string[] { "all", "amd64", "arm64", "armhf" },
+												};
+												string sourcesListString = "deb https://packages.microsoft.com/debian/12/prod/ bullseye main";
+												//act
+												DebianPackageRepository? testRepository = await _packageRepositoryFactory.CreatePackageRepository(packageRepositorySettings) as DebianPackageRepository;
+												testRepository?.SetSourcesListAddress(sourcesListString);
+												//assert
+												Assert.NotNull(testRepository);
+												Assert.Equal(sourcesListString, testRepository.SourcesListAddress);
+								}
 				}
 }
