@@ -29,21 +29,45 @@ namespace RepositoryReader.Debian.Tests
 								public async Task ReadNormalRepository()
 								{
 												//assign
-												var normalrepourl = new Uri("https://packages.microsoft.com/debian/10/prod/dists/buster/main/binary-all/Packages");
+												IPackageRepositorySettings packageRepositorySettings = new DebianPackageRepositorySettings()
+												{
+																BaseUri = new Uri("https://packages.microsoft.com/debian/11/prod/"),
+																GpgKeyUri = new Uri("https://packages.microsoft.com/debian/11/prod/dists/bullseye/Release.gpg"),
+																Distribution = "bullseye",
+																Name = "microsoft",
+																IsManageable = false,
+																Port = 0,
+																Type = "deb",
+																Components = new string[] { "main" },
+																Architectures = new string[] { "all", "amd64", "arm64", "armhf" },
+												};
+												IPackageRepository testRepository = await _packageRepositoryFactory.CreatePackageRepository(packageRepositorySettings);
 												//act
-												await _packageRepository.GetPackages();
+												await testRepository.GetPackages();
 												//assert
-												Assert.NotNull(_packageRepository.Packages);
-												Assert.NotEmpty(_packageRepository.Packages);
+												Assert.NotNull(testRepository.Packages);
+												Assert.NotEmpty(testRepository.Packages);
 								}
 
 								[Fact]
 								public async Task ReadBrokenRepository()
 								{
 												//assign
-												var brokenrepourl = new Uri("https://packages.microsoft.com/debian/10/prod/dists/buster/main/binary-all/NoPackages");
+												IPackageRepositorySettings packageRepositorySettings = new DebianPackageRepositorySettings()
+												{
+																BaseUri = new Uri("https://packages.microsoft.com/nondebian/11/prod/"),
+																GpgKeyUri = new Uri("https://packages.microsoft.com/debian/11/prod/dists/bullseye/Release.gpg"),
+																Distribution = "bullseye",
+																Name = "microsoft",
+																IsManageable = false,
+																Port = 0,
+																Type = "deb",
+																Components = new string[] { "main" },
+																Architectures = new string[] { "all", "amd64", "arm64", "armf" },
+												};
+												IPackageRepository testRepository = await _packageRepositoryFactory.CreatePackageRepository(packageRepositorySettings);
 												//act
-												Func<Task> func = () => _packageRepository.GetPackages();
+												Func<Task> func = () => testRepository.GetPackages();
 												//assert
 												await Assert.ThrowsAnyAsync<Exception>(func);
 								}

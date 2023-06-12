@@ -1,4 +1,5 @@
 using Castle.Core.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities.Resources;
 using Moq;
 
@@ -10,8 +11,8 @@ namespace RepositoryReader.Debian.Tests
 
         public DebianPackageFactoryTests()
         {
-												Microsoft.Extensions.Logging.ILogger<DebianPackageFactory> logger = new Mock<Microsoft.Extensions.Logging.ILogger<DebianPackageFactory>>().Object;
-												_factory = new DebianPackageFactory(logger);
+												var loggerFactory = new NullLoggerFactory();
+												_factory = new DebianPackageFactory(loggerFactory);
         }
 
         [Fact]
